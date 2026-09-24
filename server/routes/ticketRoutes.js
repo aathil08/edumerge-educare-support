@@ -1,5 +1,6 @@
 const express = require('express');
 const controller = require('../controllers/ticketController');
+const commentController = require('../controllers/commentController');
 const { protect, authorize } = require('../middleware/auth');
 const validateObjectIdParam = require('../middleware/validateObjectId');
 const { ROLES } = require('../utils/constants');
@@ -15,5 +16,9 @@ router.get('/:id', idCheck, controller.getOne);
 router.patch('/:id', idCheck, authorize(ROLES.STAFF, ROLES.MANAGER), controller.updatePriority);
 router.patch('/:id/status', idCheck, controller.changeStatus);
 router.patch('/:id/assign', idCheck, authorize(ROLES.STAFF, ROLES.MANAGER), controller.assign);
+
+router.post('/:id/comments', idCheck, commentController.add);
+router.get('/:id/comments', idCheck, commentController.list);
+router.get('/:id/activity', idCheck, commentController.activity);
 
 module.exports = router;
