@@ -6,6 +6,8 @@ const mongoose = require('mongoose');
 
 const env = require('./config/env');
 const authRoutes = require('./routes/authRoutes');
+const ticketRoutes = require('./routes/ticketRoutes');
+const userRoutes = require('./routes/userRoutes');
 const notFound = require('./middleware/notFound');
 const errorHandler = require('./middleware/errorHandler');
 
@@ -31,6 +33,8 @@ app.get('/api/health', (req, res) => {
 });
 
 app.use('/api/auth', authRoutes);
+app.use('/api/tickets', ticketRoutes);
+app.use('/api/users', userRoutes);
 
 app.use(notFound);
 app.use(errorHandler);
