@@ -5,6 +5,7 @@ const morgan = require('morgan');
 const mongoose = require('mongoose');
 
 const env = require('./config/env');
+const authRoutes = require('./routes/authRoutes');
 const notFound = require('./middleware/notFound');
 const errorHandler = require('./middleware/errorHandler');
 
@@ -29,7 +30,7 @@ app.get('/api/health', (req, res) => {
   });
 });
 
-// Future routes will be mounted here (auth, tickets, ...).
+app.use('/api/auth', authRoutes);
 
 app.use(notFound);
 app.use(errorHandler);
