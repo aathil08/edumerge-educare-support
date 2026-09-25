@@ -9,18 +9,17 @@ import Register from './pages/Register.jsx';
 import Profile from './pages/Profile.jsx';
 import NotFound from './pages/NotFound.jsx';
 import Unauthorized from './pages/Unauthorized.jsx';
-import PlaceholderPage from './pages/PlaceholderPage.jsx';
 import StudentDashboard from './pages/StudentDashboard.jsx';
 import StaffDashboard from './pages/StaffDashboard.jsx';
 import ManagerDashboard from './pages/ManagerDashboard.jsx';
 import TicketsPage from './pages/TicketsPage.jsx';
 import CreateTicket from './pages/CreateTicket.jsx';
+import TicketDetail from './pages/TicketDetail.jsx';
 import { ROLES } from './utils/roles.js';
 
 export default function App() {
   return (
     <Routes>
-      {/* Public */}
       <Route element={<PublicOnlyRoute />}>
         <Route element={<AuthLayout />}>
           <Route path="/login" element={<Login />} />
@@ -28,15 +27,13 @@ export default function App() {
         </Route>
       </Route>
 
-      {/* Authenticated */}
       <Route element={<ProtectedRoute />}>
         <Route element={<AppLayout />}>
           <Route path="/" element={<HomeRedirect />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/unauthorized" element={<Unauthorized />} />
-          <Route path="/tickets/:id" element={<PlaceholderPage title="Ticket Details" />} />
+          <Route path="/tickets/:id" element={<TicketDetail />} />
 
-          {/* Student */}
           <Route element={<ProtectedRoute roles={[ROLES.STUDENT]} />}>
             <Route path="/student" element={<StudentDashboard />} />
             <Route
@@ -54,7 +51,6 @@ export default function App() {
             <Route path="/student/tickets/new" element={<CreateTicket />} />
           </Route>
 
-          {/* Staff */}
           <Route element={<ProtectedRoute roles={[ROLES.STAFF]} />}>
             <Route path="/staff" element={<StaffDashboard />} />
             <Route
@@ -66,12 +62,13 @@ export default function App() {
                   emptyTitle="No tickets in the queue."
                   emptyDescription="New tickets from students will appear here."
                   showStudent
+                  showSla
+                  showAssigned
                 />
               }
             />
           </Route>
 
-          {/* Manager */}
           <Route element={<ProtectedRoute roles={[ROLES.MANAGER]} />}>
             <Route path="/manager" element={<ManagerDashboard />} />
             <Route
@@ -83,11 +80,13 @@ export default function App() {
                   emptyTitle="No tickets yet."
                   emptyDescription="Tickets raised by students will appear here."
                   showStudent
+                  showSla
+                  showAssigned
                 />
               }
             />
-            <Route path="/manager/workload" element={<PlaceholderPage title="Staff Workload" />} />
-            <Route path="/manager/reports" element={<PlaceholderPage title="Reports & Insights" />} />
+            <Route path="/manager/workload" element={<Navigate to="/manager" replace />} />
+            <Route path="/manager/reports" element={<Navigate to="/manager" replace />} />
           </Route>
         </Route>
       </Route>

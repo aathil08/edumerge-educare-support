@@ -39,4 +39,7 @@
   .input-error {
     @apply border-red-400 focus:border-red-500 focus:ring-red-500;
   }
+    .textarea-counter {
+    @apply text-xs text-slate-500;
+  }
 }

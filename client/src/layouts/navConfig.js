@@ -13,8 +13,6 @@ export const NAV_ITEMS = {
   MANAGER: [
     { to: '/manager', label: 'Dashboard', icon: 'home', end: true },
     { to: '/manager/tickets', label: 'All Tickets', icon: 'list', end: true },
-    { to: '/manager/workload', label: 'Staff Workload', icon: 'users', end: true },
-    { to: '/manager/reports', label: 'Reports', icon: 'chart', end: true },
     { to: '/profile', label: 'Profile', icon: 'user', end: true },
   ],
 };
